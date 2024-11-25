@@ -1,5 +1,3 @@
-To https://github.com/codevalve/dev-session-buddy.git
- * [new branch]      main -> main
 # Dev Session Buddy 🤝
 
 <p align="center">
