@@ -1,29 +1,37 @@
 :root {
-    /* Light theme colors */
+    /* Light theme colors - Jelly themed */
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
     --text-primary: #2d3748;
     --text-secondary: #4a5568;
-    --accent-primary: #4f46e5;
-    --accent-secondary: #818cf8;
+    --accent-primary: #472468;  /* Grape jelly purple */
+    --accent-secondary: #6b3c9b; /* Lighter jelly purple */
     --border-color: #e2e8f0;
     --card-bg: #ffffff;
     --terminal-bg: #1a1a1a;
     --terminal-text: #f0f0f0;
+    
+    /* Gradient colors for buttons and effects */
+    --gradient-start: #472468;
+    --gradient-end: #6b3c9b;
 }
 
 [data-theme="dark"] {
-    /* Dark theme colors */
+    /* Dark theme colors - Peanut Butter themed */
     --bg-primary: #1a202c;
     --bg-secondary: #2d3748;
     --text-primary: #f7fafc;
     --text-secondary: #e2e8f0;
-    --accent-primary: #818cf8;
-    --accent-secondary: #4f46e5;
+    --accent-primary: #D4A373;    /* Creamy peanut butter */
+    --accent-secondary: #BC8A5F;  /* Darker peanut butter */
     --border-color: #4a5568;
     --card-bg: #2d3748;
     --terminal-bg: #000000;
     --terminal-text: #f0f0f0;
+    
+    /* Gradient colors for buttons and effects */
+    --gradient-start: #D4A373;
+    --gradient-end: #BC8A5F;
 }
 
 /* Base styles */
@@ -144,9 +152,10 @@ nav {
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .hero-text p {
@@ -174,7 +183,7 @@ nav {
 }
 
 .primary-btn:hover {
-    background-color: var(--accent-secondary);
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
     transform: translateY(-2px);
 }
 
@@ -212,11 +221,18 @@ nav {
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
+    border-color: var(--accent-primary);
+    box-shadow: 0 8px 12px rgba(71, 36, 104, 0.1);
+}
+
+[data-theme="dark"] .feature-card:hover {
+    box-shadow: 0 8px 12px rgba(212, 163, 115, 0.1);
 }
 
 .feature-icon {
@@ -324,11 +340,23 @@ nav {
 /* Loading placeholders */
 .loading-placeholder {
     position: relative;
-    background: linear-gradient(110deg, var(--bg-secondary) 8%, var(--border-color) 18%, var(--bg-secondary) 33%);
+    background: linear-gradient(110deg, 
+        var(--bg-secondary) 8%, 
+        rgba(71, 36, 104, 0.1) 18%, 
+        var(--bg-secondary) 33%
+    );
     background-size: 200% 100%;
     animation: 1.5s shine linear infinite;
     border-radius: 0.5rem;
     overflow: hidden;
+}
+
+[data-theme="dark"] .loading-placeholder {
+    background: linear-gradient(110deg, 
+        var(--bg-secondary) 8%, 
+        rgba(212, 163, 115, 0.1) 18%, 
+        var(--bg-secondary) 33%
+    );
 }
 
 .hero-image.loading-placeholder {
