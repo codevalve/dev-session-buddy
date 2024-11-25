@@ -1,0 +1,70 @@
+# Default configuration for Dev Session Buddy
+name: "My Project"
+version: "1.0.0"
+
+# Project type and framework
+framework: "default"  # Options: vue, react, angular, node, django, flask, etc.
+type: "module"       # Options: module, commonjs
+
+# Required and optional tools
+tools:
+  required:
+    - git
+    - node
+    - npm
+  optional:
+    - gh        # GitHub CLI
+    - docker
+    - aws-cli
+
+# Project standards
+standards:
+  commit:
+    convention: "conventional-commits"
+    scopes: 
+      - ui
+      - api
+      - docs
+      - deps
+  branches:
+    pattern: "${type}/${description}"
+    types: 
+      - feature
+      - fix
+      - refactor
+
+# Development workflow
+workflow:
+  dev_server: "npm run dev"
+  test: "npm run test"
+  build: "npm run build"
+  lint: "npm run lint"
+
+# Style guide and best practices
+style_guide:
+  url: "./docs/STYLE_GUIDE.md"
+  key_points:
+    - "Follow project coding standards"
+    - "Write clear commit messages"
+    - "Document complex logic"
+
+# Display settings
+display:
+  sections:
+    - tools
+    - standards
+    - workflow
+    - testing
+    - style
+  colors:
+    enabled: true
+    theme: "default"  # Options: default, dark, light, custom
+
+# AI Assistant specific settings
+ai_assistant:
+  format: "structured"  # Options: structured, minimal
+  context_details:
+    - tools
+    - standards
+    - workflow
+    - testing
