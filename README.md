@@ -1,4 +1,10 @@
+To https://github.com/codevalve/dev-session-buddy.git
+ * [new branch]      main -> main
 # Dev Session Buddy 🤝
+
+<p align="center">
+  <img src="docs/assets/logo.png" alt="Dev Session Buddy Logo" width="200"/>
+</p>
 
 Born from the experience of pair programming with AI assistants, Dev Session Buddy is a smart development session startup script that standardizes how project context, tooling, and development standards are communicated to both human and AI collaborators.
 
@@ -47,4 +53,4 @@ MIT License - feel free to use this in your own projects!
 
 ## Acknowledgments 👏
 
-Special thanks to the AI assistants who helped identify this need and contributed to the initial implementation.
+Special thanks to the AI named Cascade who helped identify this need and contributed to not only the initial implementation, but came up with the name for the project. This collaboration exemplifies how AI assistants can be creative partners in solving development challenges.
