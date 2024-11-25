@@ -213,28 +213,24 @@ h1, h2, h3, h4, h5, h6 {
 /* Features section */
 .features {
     padding: 6rem 0;
-}
-
-.features h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 3rem;
+    background-color: var(--bg-primary);
 }
 
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
+    margin-top: 3rem;
 }
 
 .feature-card {
     background-color: var(--card-bg);
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border: 1px solid transparent;
+    text-align: center;
 }
 
 .feature-card:hover {
@@ -247,16 +243,19 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 8px 12px rgba(212, 163, 115, 0.1);
 }
 
-.feature-icon {
-    margin-bottom: 1.5rem;
-}
-
 .feature-card h3 {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 400;
     letter-spacing: 0.5px;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     text-transform: uppercase;
+    color: var(--accent-primary);
+}
+
+.feature-card p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
 }
 
 /* Getting Started section */
