@@ -65,3 +65,23 @@ document.querySelectorAll('.feature-card, .installation-guide').forEach(el => {
     el.style.transform = 'translateY(20px)';
     observer.observe(el);
 });
+
+// Handle image loading
+document.addEventListener('DOMContentLoaded', () => {
+    // Load images with placeholders
+    document.querySelectorAll('.loading-placeholder[data-src]').forEach(placeholder => {
+        const img = new Image();
+        img.src = placeholder.dataset.src;
+        img.alt = placeholder.dataset.alt || '';
+        
+        img.onload = () => {
+            placeholder.appendChild(img);
+            img.classList.add('loaded');
+            placeholder.classList.remove('loading-placeholder');
+        };
+
+        img.onerror = () => {
+            placeholder.classList.add('load-error');
+        };
+    });
+});

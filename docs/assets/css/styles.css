@@ -109,6 +109,23 @@ nav {
     gap: 0.5rem;
 }
 
+/* Logo theme switching */
+.logo-dark {
+    display: block;
+}
+
+.logo-light {
+    display: none;
+}
+
+[data-theme="dark"] .logo-dark {
+    display: none;
+}
+
+[data-theme="dark"] .logo-light {
+    display: block;
+}
+
 /* Hero section */
 .hero {
     padding: 4rem 0;
@@ -302,6 +319,43 @@ nav {
 
 .docs-link:hover {
     text-decoration: underline;
+}
+
+/* Loading placeholders */
+.loading-placeholder {
+    position: relative;
+    background: linear-gradient(110deg, var(--bg-secondary) 8%, var(--border-color) 18%, var(--bg-secondary) 33%);
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.hero-image.loading-placeholder {
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.feature-icon.loading-placeholder {
+    width: 64px;
+    height: 64px;
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}
+
+/* Image loading */
+.hero-image img, .feature-icon img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hero-image img.loaded, .feature-icon img.loaded {
+    opacity: 1;
 }
 
 /* Footer */
