@@ -2,8 +2,25 @@
 
 # Set up test environment
 setup_test_environment() {
-    export PROJECT_ROOT="$BATS_TEST_DIRNAME/.."
+    # Get the absolute path to the project root
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    export PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
     export PATH="$PROJECT_ROOT/node_modules/.bin:$PATH"
+    
+    # Ensure config directory exists
+    mkdir -p "$PROJECT_ROOT/config"
+    
+    # Create test config if it doesn't exist
+    if [ ! -f "$PROJECT_ROOT/config/default.yaml" ]; then
+        cat > "$PROJECT_ROOT/config/default.yaml" << EOL
+name: "Dev Session Buddy"
+tools:
+  required:
+    - git
+    - node
+    - npm
+EOL
+    fi
 }
 
 # Helper to create temporary test files

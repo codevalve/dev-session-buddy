@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# Import common functions and variables (will create these later)
-source "$(dirname "$0")/../../core/common.sh"
+# Import common functions and variables
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/../../core/common.sh"
 
 # Load configuration
-CONFIG_FILE="${PROJECT_ROOT}/dev-session-buddy.yaml"
+CONFIG_FILE="${SCRIPT_DIR}/../../dev-session-buddy.yaml"
 if [ ! -f "$CONFIG_FILE" ]; then
-    CONFIG_FILE="${PROJECT_ROOT}/config/default.yaml"
+    CONFIG_FILE="${SCRIPT_DIR}/../../config/default.yaml"
 fi
 
 # ANSI color codes
