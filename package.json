@@ -4,6 +4,9 @@
   "description": "A smart development session startup script for human and AI collaboration",
   "main": "src/index.js",
   "type": "module",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "test": "npm run test:unit && npm run test:shell",
     "test:unit": "jest",

@@ -4,6 +4,15 @@
   <img src="docs/assets/logo-light.png" alt="Dev Session Buddy Logo" width="200"/>
 </p>
 
+<div align="center">
+
+[![Tests](https://github.com/codevalve/dev-session-buddy/actions/workflows/test.yml/badge.svg)](https://github.com/codevalve/dev-session-buddy/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node Version](https://img.shields.io/node/v/dev-session-buddy)](https://nodejs.org)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/codevalve/dev-session-buddy/blob/main/CONTRIBUTING.md)
+
+</div>
+
 Born from the experience of pair programming with AI assistants, Dev Session Buddy is a smart development session startup script that standardizes how project context, tooling, and development standards are communicated to both human and AI collaborators.
 
 ## Origin Story 📖
@@ -168,6 +177,76 @@ dev-session-buddy/
    - Check file permissions
 
 For more help, please [open an issue](https://github.com/codevalve/dev-session-buddy/issues).
+
+## Testing 🧪
+
+Dev Session Buddy uses a comprehensive testing approach with both JavaScript and shell script testing:
+
+### Test Frameworks
+
+- **Jest**: For JavaScript unit testing
+  - Configuration validation
+  - Project structure verification
+  - Utility function testing
+
+- **BATS** (Bash Automated Testing System): For shell script testing
+  - Script functionality verification
+  - Environment setup testing
+  - Tool availability checks
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run only JavaScript tests
+npm run test:unit
+
+# Run only shell script tests
+npm run test:shell
+
+# Run shell script linting
+npm run lint:shell
+
+# Run tests in watch mode (during development)
+npm run test:watch
+
+# Generate test coverage report
+npm run test:coverage
+```
+
+### Test Structure
+
+```
+tests/
+├── unit/           # JavaScript unit tests
+│   └── config.test.js
+├── integration/    # Integration tests
+├── shell/          # Shell script tests
+│   └── session-start.bats
+└── test_helper.bash # Test helper functions
+```
+
+### Writing Tests
+
+1. **JavaScript Tests**
+   - Place in `tests/unit/` or `tests/integration/`
+   - Use `.test.js` or `.spec.js` extension
+   - Follow Jest testing patterns
+
+2. **Shell Script Tests**
+   - Place in `tests/shell/`
+   - Use `.bats` extension
+   - Import test helper: `load '../test_helper'`
+
+### Coverage Reports
+
+Test coverage reports are generated in the `coverage/` directory after running `npm run test:coverage`. The project aims for:
+
+- Line coverage: 80%
+- Branch coverage: 80%
+- Function coverage: 90%
 
 ## Configuration 🔧
 
