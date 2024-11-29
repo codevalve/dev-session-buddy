@@ -23,7 +23,7 @@ npx create-dev-session-buddy my-vue-app --framework vue
 
 # Or initialize in an existing Vue.js project
 cd my-vue-app
-npx dev-session-buddy init --framework vue
+npx dsb init --framework vue
 ```
 
 ## Configuration

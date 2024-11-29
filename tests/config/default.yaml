@@ -1,0 +1,6 @@
+name: "Dev Session Buddy"
+tools:
+  required:
+    - git
+    - node
+    - npm

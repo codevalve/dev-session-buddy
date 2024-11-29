@@ -159,24 +159,115 @@ dev-session-buddy/
 └── docs/            # Documentation
 ```
 
+### Common Configurations
+
+Here are some common configuration examples:
+
+```yaml
+# Basic configuration
+name: "My Project"
+tools:
+  required:
+    - git
+    - node
+  optional:
+    - docker
+
+# Full configuration with all options
+name: "Advanced Project"
+description: "A complex project with multiple tools"
+tools:
+  required:
+    - git
+    - node
+    - npm
+    - python3
+  optional:
+    - docker
+    - aws-cli
+    - terraform
+standards:
+  - "Use TypeScript for new features"
+  - "Write unit tests for all components"
+  - "Follow GitFlow branching strategy"
+git:
+  main_branch: main
+  develop_branch: develop
+  feature_prefix: feature
+  fix_prefix: fix
+frameworks:
+  - vue
+  - typescript
+ci:
+  provider: github-actions
+  node_versions:
+    - 16
+    - 18
+```
+
+### Advanced Usage
+
+#### Custom Templates
+
+Create a custom template for your framework:
+
+1. Create a new directory in `src/templates/`:
+   ```bash
+   mkdir src/templates/my-framework
+   ```
+
+2. Add required files:
+   - `session-start.sh`: Main script
+   - `config-template.yaml`: Default configuration
+   - `README.md`: Template documentation
+
+#### Multiple Projects
+
+Use Dev Session Buddy across multiple projects:
+
+1. Install globally:
+   ```bash
+   npm install -g @devsessionbuddy/cli
+   ```
+
+2. Initialize in any project:
+   ```bash
+   dsb init --framework vue
+   ```
+
 ### Troubleshooting
 
-1. **Script Permission Issues**
+Common issues and solutions:
+
+1. **Script Permission Errors**
    ```bash
    chmod +x session-start.sh
    ```
 
-2. **Missing Tools**
-   - Ensure all required tools are installed
-   - Check PATH environment variable
-   - Run `which <tool-name>` to verify installation
+2. **Missing Dependencies**
+   - Ensure Node.js version is 16 or higher
+   - Run `npm install` in project root
+   - Check PATH for required tools
 
-3. **Configuration Issues**
-   - Verify YAML syntax
-   - Ensure config file is in correct location
+3. **Configuration Not Found**
+   - Ensure config file is in project root or config/
    - Check file permissions
+   - Validate YAML syntax
 
-For more help, please [open an issue](https://github.com/codevalve/dev-session-buddy/issues).
+4. **Git Integration Issues**
+   - Ensure you're in a git repository
+   - Check git installation: `git --version`
+   - Verify git remote configuration
+
+5. **Framework Template Issues**
+   - Verify template exists for your framework
+   - Check template files permissions
+   - Ensure all template files were copied
+
+For more complex issues:
+1. Enable debug mode: `DEBUG=true ./session-start.sh`
+2. Check logs in `~/.dev-session-buddy/logs/`
+3. [Open an issue](https://github.com/codevalve/dev-session-buddy/issues) with debug output
 
 ## Testing 🧪
 

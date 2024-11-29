@@ -22,7 +22,7 @@ npx create-dev-session-buddy my-project --framework minimal
 
 # Or initialize in an existing project
 cd my-project
-npx dev-session-buddy init --framework minimal
+npx dsb init --framework minimal
 ```
 
 ## Configuration

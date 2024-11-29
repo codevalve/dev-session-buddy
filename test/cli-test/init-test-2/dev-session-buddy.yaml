@@ -1,0 +1,92 @@
+name: Project Name
+framework: vue
+preset: full
+version: 0.1.0
+type: Single Page Application
+requirements:
+  node: ">=16.0.0"
+  npm: ">=8.0.0"
+  vue: ^3.0.0
+  vite: ^4.0.0
+scripts:
+  start: ./session-start.sh
+  test: vitest
+  dev: vite
+  build: vite build
+  preview: vite preview
+tools:
+  required:
+    - node
+    - npm
+    - git
+    - vue
+    - vite
+  optional:
+    - docker
+    - docker-compose
+    - nvm
+  git:
+    hooks:
+      pre-commit: npm test
+      pre-push: npm run build
+  editor:
+    formatOnSave: true
+    rulers:
+      - 80
+      - 100
+    tabSize: 2
+    vueFiles:
+      scriptFormat: true
+      styleFormat: true
+      templateFormat: true
+standards:
+  key_points:
+    - Use Composition API for new components
+    - Follow Vue.js Style Guide
+    - Write unit tests for components
+    - Document component props and events
+  branches:
+    types:
+      - feature
+      - bugfix
+      - hotfix
+      - release
+      - chore
+  commit:
+    conventional: true
+    scopes:
+      - ui
+      - api
+      - core
+      - deps
+      - config
+      - docs
+      - test
+  testing:
+    coverage: 80
+    frameworks:
+      - vitest
+      - "@vue/test-utils"
+  documentation:
+    required: true
+    locations:
+      - README.md
+      - docs/
+      - src/**/*.vue
+  code:
+    style: "@vue/airbnb"
+    maxLineLength: 100
+workflow:
+  dev_server: npm run dev
+  test: npm test
+  build: npm run build
+style_guide:
+  key_points:
+    - Use PascalCase for component names
+    - Use kebab-case for events
+    - Props should use camelCase
+    - Components should be single responsibility
+    - Use computed properties for derived data
+    - Keep components under 300 lines
+testing: {}
+documentation: {}

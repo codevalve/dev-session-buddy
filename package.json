@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "type": "module",
   "bin": {
-    "dsb": "./bin/dsb.js",
+    "dev-session-buddy": "./bin/dev-session-buddy.js",
     "create-dev-session-buddy": "./bin/create-dev-session-buddy.js"
   },
   "engines": {
