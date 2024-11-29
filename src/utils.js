@@ -1,128 +1,74 @@
+import { promises as fsPromises } from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { promises as fs } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path';
+import yaml from 'js-yaml';
 
 const execAsync = promisify(exec);
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 /**
- * Get the version of a CLI tool
- * @param {string} command - Command to get version
- * @returns {Promise<string>} Version string
- */
-export async function getToolVersion(command) {
-  try {
-    if (command === 'node --version') {
-      return process.version;
-    }
-    const { stdout } = await execAsync(command);
-    return stdout.trim();
-  } catch (error) {
-    return null;
-  }
-}
-
-/**
- * Copy a directory recursively
- * @param {string} src - Source directory
- * @param {string} dest - Destination directory
- */
-export async function copyDir(src, dest) {
-  await fs.mkdir(dest, { recursive: true });
-  const entries = await fs.readdir(src, { withFileTypes: true });
-
-  for (const entry of entries) {
-    const srcPath = join(src, entry.name);
-    const destPath = join(dest, entry.name);
-
-    if (entry.isDirectory()) {
-      await copyDir(srcPath, destPath);
-    } else {
-      await fs.copyFile(srcPath, destPath);
-      // Preserve executable permissions
-      const stats = await fs.stat(srcPath);
-      await fs.chmod(destPath, stats.mode);
-    }
-  }
-}
-
-/**
- * Get template directory path
- * @param {string} framework - Framework name
- * @returns {string} Template directory path
- */
-export function getTemplatePath(framework) {
-  return join(__dirname, 'templates', framework);
-}
-
-/**
- * Check if a command exists in PATH
+ * Check if a command exists in the system
  * @param {string} command - Command to check
- * @returns {Promise<boolean>} Whether command exists
+ * @returns {Promise<boolean>} - True if command exists
  */
 export async function commandExists(command) {
   try {
-    if (command === 'node') {
-      return process.execPath !== undefined;
-    }
-    await execAsync(`command -v ${command}`);
-    return true;
+    const { stdout } = await execAsync(`command -v ${command}`);
+    return !!stdout;
   } catch {
     return false;
   }
 }
 
 /**
- * Parse version string to components
- * @param {string} version - Version string (e.g., "v14.17.0" or "14.17.0")
- * @returns {number[]} Version components
+ * Get version of a tool from command line
+ * @param {string} command - Command to execute
+ * @returns {Promise<string|null>} - Version string or null if error
+ */
+export async function getToolVersion(command) {
+  try {
+    const { stdout } = await execAsync(command);
+    return parseVersion(stdout.trim());
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Parse version string
+ * @param {string} version - Version string
+ * @returns {string} - Normalized version string
  */
 export function parseVersion(version) {
-  const match = version.match(/\d+\.\d+\.\d+/);
-  if (!match) return [0, 0, 0];
-  return match[0].split('.').map(Number);
+  return version.startsWith('v') ? version : `v${version}`;
 }
 
 /**
  * Check if version meets minimum requirement
- * @param {string} current - Current version
- * @param {string} required - Required version
- * @returns {boolean} Whether version is sufficient
+ * @param {string} version - Version to check
+ * @param {string} minVersion - Minimum version required
+ * @returns {boolean} - True if version meets requirement
  */
-export function checkVersion(current, required) {
-  const currentParts = parseVersion(current);
-  const requiredParts = parseVersion(required.replace(/[^\d.]/g, ''));
+export function checkVersion(version, minVersion) {
+  const v1 = version.replace('v', '').split('.').map(Number);
+  const v2 = minVersion.replace('v', '').split('.').map(Number);
   
   for (let i = 0; i < 3; i++) {
-    if (currentParts[i] > requiredParts[i]) return true;
-    if (currentParts[i] < requiredParts[i]) return false;
+    if (v1[i] > v2[i]) return true;
+    if (v1[i] < v2[i]) return false;
   }
   return true;
 }
 
 /**
- * Get project root directory
- * @returns {string} Project root directory
+ * Load YAML configuration file
+ * @param {string} configPath - Path to config file
+ * @returns {Promise<object>} - Configuration object
  */
-export function getProjectRoot() {
-  return join(__dirname, '..');
-}
-
-/**
- * Load and parse YAML configuration
- * @param {string} path - Path to YAML file
- * @returns {Promise<object>} Configuration object
- */
-export async function loadConfig(path) {
+export async function loadConfig(configPath) {
   try {
-    const yamlContent = await fs.readFile(path, 'utf8');
-    // Note: We're using the yaml package which was added to package.json
-    const yaml = (await import('yaml')).default;
-    return yaml.parse(yamlContent);
+    const content = await fsPromises.readFile(configPath, 'utf8');
+    return yaml.load(content);
   } catch (error) {
     throw new Error(`Failed to load configuration: ${error.message}`);
   }
@@ -130,14 +76,48 @@ export async function loadConfig(path) {
 
 /**
  * Save configuration to YAML file
- * @param {string} path - Path to YAML file
+ * @param {string} configPath - Path to save config
  * @param {object} config - Configuration object
  */
-export async function saveConfig(path, config) {
+export async function saveConfig(configPath, config) {
   try {
-    const yaml = (await import('yaml')).default;
-    await fs.writeFile(path, yaml.stringify(config));
+    const yamlStr = yaml.dump(config);
+    await fsPromises.writeFile(configPath, yamlStr, 'utf8');
   } catch (error) {
     throw new Error(`Failed to save configuration: ${error.message}`);
   }
+}
+
+/**
+ * Copy directory recursively
+ * @param {string} src - Source directory
+ * @param {string} dest - Destination directory
+ */
+export async function copyDir(src, dest) {
+  try {
+    const entries = await fsPromises.readdir(src, { withFileTypes: true });
+    await fsPromises.mkdir(dest, { recursive: true });
+
+    for (const entry of entries) {
+      const srcPath = path.join(src, entry.name);
+      const destPath = path.join(dest, entry.name);
+
+      if (entry.isDirectory()) {
+        await copyDir(srcPath, destPath);
+      } else {
+        await fsPromises.copyFile(srcPath, destPath);
+      }
+    }
+  } catch (error) {
+    throw new Error(`Failed to copy directory: ${error.message}`);
+  }
+}
+
+/**
+ * Get template path for framework
+ * @param {string} framework - Framework name
+ * @returns {string} - Template path
+ */
+export function getTemplatePath(framework) {
+  return path.join(process.cwd(), 'templates', framework);
 }

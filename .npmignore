@@ -1,0 +1,30 @@
+# Development files
+tests/
+docs/
+scripts/
+.github/
+.git/
+.gitignore
+.eslintrc*
+.prettierrc*
+jest.config.js
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build and coverage
+coverage/
+.nyc_output/
+*.log
+
+# Environment
+.env*
+.env.local
+.env.*.local
+
+# Misc
+*.tgz
+.DS_Store

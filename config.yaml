@@ -1,0 +1,8 @@
+framework: vue
+dependencies:
+  required:
+    - vue
+    - vite
+  dev:
+    - jest
+    - eslint
