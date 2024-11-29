@@ -1,0 +1,37 @@
+name: Project Name
+framework: minimal
+preset: full
+version: 0.1.0
+requirements:
+  node: ">=16.0.0"
+  npm: ">=8.0.0"
+scripts:
+  start: ./session-start.sh
+  test: npm test
+tools:
+  git:
+    hooks:
+      pre-commit: npm test
+  editor:
+    formatOnSave: true
+    rulers:
+      - 80
+      - 100
+    tabSize: 2
+standards:
+  commits:
+    conventional: true
+    scopes: []
+  testing:
+    coverage: 80
+    frameworks: []
+  documentation:
+    required: true
+    locations:
+      - README.md
+      - docs/
+  code:
+    style: standard
+    maxLineLength: 100
+testing: {}
+documentation: {}
