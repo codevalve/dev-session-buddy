@@ -4,16 +4,24 @@
   "description": "A smart development session startup script for human and AI collaboration",
   "main": "src/index.js",
   "type": "module",
+  "bin": {
+    "dev-session-buddy": "./bin/dev-session-buddy.js",
+    "create-dev-session-buddy": "./bin/create-dev-session-buddy.js"
+  },
   "engines": {
     "node": ">=16.0.0"
   },
   "scripts": {
     "test": "npm run test:unit && npm run test:shell",
-    "test:unit": "jest",
+    "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest",
     "test:shell": "bats tests/shell/*.bats",
     "lint:shell": "shellcheck --severity=error src/**/*.sh",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "prepare": "npm run build",
+    "build": "node scripts/build.js",
+    "release": "standard-version",
+    "verify": "node scripts/verify-package.js"
   },
   "keywords": [
     "development",
@@ -22,18 +30,33 @@
     "collaboration",
     "session",
     "startup",
-    "project-standards"
+    "project-standards",
+    "cli",
+    "template",
+    "vue",
+    "git"
   ],
-  "author": "",
+  "author": "CodeValve",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codevalve/dev-session-buddy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codevalve/dev-session-buddy/issues"
+  },
+  "homepage": "https://codevalve.github.io/dev-session-buddy",
   "license": "MIT",
   "dependencies": {
     "chalk": "^5.3.0",
-    "yaml": "^2.3.4"
+    "commander": "^11.1.0",
+    "inquirer": "^9.2.12",
+    "js-yaml": "^4.1.0",
+    "ora": "^7.0.1"
   },
   "devDependencies": {
     "bats": "^1.11.0",
     "jest": "^29.7.0",
-    "js-yaml": "^4.1.0",
-    "shellcheck": "^3.0.0"
+    "shellcheck": "^3.0.0",
+    "standard-version": "^9.5.0"
   }
 }

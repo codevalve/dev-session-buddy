@@ -10,4 +10,7 @@ export default {
   ],
   moduleFileExtensions: ['js'],
   transform: {},
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1'
+  }
 };
