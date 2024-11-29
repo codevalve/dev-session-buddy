@@ -17,11 +17,12 @@ check_required_tools() {
     local config_file="$1"
     local missing_tools=()
     
-    while IFS= read -r tool; do
+    # Get required tools and check each one
+    for tool in $(yq eval '.tools.required[]' "$config_file"); do
         if ! command_exists "$tool"; then
             missing_tools+=("$tool")
         fi
-    done < <(yq eval '.tools.required[]' "$config_file")
+    done
     
     if [ ${#missing_tools[@]} -ne 0 ]; then
         echo -e "${RED}Missing required tools:${NC}"
