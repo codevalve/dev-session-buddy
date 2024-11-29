@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Get the project root directory
-PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
-if [ $? -ne 0 ]; then
+PROJECT_ROOT=""
+if ! PROJECT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null); then
     echo "Error: Not in a git repository"
     exit 1
 fi

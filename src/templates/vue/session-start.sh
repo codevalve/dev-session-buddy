@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Import common functions and variables (will create these later)
-source "$(dirname "$0")/../../core/common.sh"
+# Import common functions and variables
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+source "${SCRIPT_DIR}/../../core/common.sh"
 
 # Load configuration
 CONFIG_FILE="${PROJECT_ROOT}/dev-session-buddy.yaml"
