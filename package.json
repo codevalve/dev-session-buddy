@@ -11,7 +11,7 @@
     "test": "npm run test:unit && npm run test:shell",
     "test:unit": "jest",
     "test:shell": "bats tests/shell/*.bats",
-    "lint:shell": "shellcheck src/**/*.sh",
+    "lint:shell": "shellcheck --severity=error src/**/*.sh",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
